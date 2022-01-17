@@ -16,8 +16,8 @@ void state_c_function(void);
 void SysTick_Handler(void);
 
 static void (*state_table[])(void) = {state_a_function,
-																			state_b_function,
-																			state_c_function
+				      state_b_function,
+				      state_c_function
 };
 static State_Type current_state;
 static int Clock;
