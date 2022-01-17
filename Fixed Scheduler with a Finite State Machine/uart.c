@@ -20,7 +20,7 @@ void USART2_Init(void){
 	USART2->BRR = 0x0683;
 	USART2->CR1 = 0x000C; //control register 1 - enable tx rx, set to 8 bit data
 	USART2->CR2 = 0x000;  //control register 2 - pass default value
-	USART2->CR3	= 0x000;	//control register 3 - no flow control
+	USART2->CR3 = 0x000;	//control register 3 - no flow control
 	USART2->CR1 = 0x2000; //enable usart module by going back to CR1
 	
 }
