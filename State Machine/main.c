@@ -2,7 +2,7 @@
 #include "stm32f4xx_hal.h"
 
 enum states{
-		STATE_A = 0,
+	  STATE_A = 0,
 	  STATE_B,
 	  STATE_C
 };
@@ -24,23 +24,23 @@ static int Clock;
 
 // Set state of clock at each second
 int main() {
-		// Hal library uses the SysTick timer as a clock piece
-		HAL_Init();
+	// Hal library uses the SysTick timer as a clock piece
+	HAL_Init();
 	
-		USART2_Init();
+	USART2_Init();
 	
-		while(1) {
-				state_table[current_state]();
+	while(1) {
+		state_table[current_state]();
 			
-			  HAL_Delay(1000);
-			  Clock++;
-		}
+		HAL_Delay(1000);
+		Clock++;
+	}
 			
 }
 
 // Initialize state to state A
 void state_machine_init(void){
-		current_state = STATE_A;
+	  current_state = STATE_A;
 	  Clock = 0;
 }
 
@@ -50,17 +50,17 @@ float sa_delta;				//Difference between current and previous time
 
 // Execute state A
 void state_a_function(void){
-	  if (Clock == 2) {
-				// Set state to state B
-				current_state = STATE_B;
+	if (Clock == 2) {
+		// Set state to state B
+		current_state = STATE_B;
 			
-			  sa_now = HAL_GetTick();
+		sa_now = HAL_GetTick();
 			
-				sa_delta = sa_now - sa_prev_time;
-			  sa_prev_time = sa_now;
-				printf("This is the output of STATE A : %f seconds ago \n\r",sa_delta);
-		 //printf("This is the execution of STATE A \n\r");
-		}
+		sa_delta = sa_now - sa_prev_time;
+		sa_prev_time = sa_now;
+		printf("This is the output of STATE A : %f seconds ago \n\r",sa_delta);
+		//printf("This is the execution of STATE A \n\r");
+	}
 }
 
 uint32_t sb_prev_time = 0;
@@ -69,17 +69,17 @@ float sb_delta;
 
 // Execute state B
 void state_b_function(void){
-		if (Clock == 5) {
-			  // Set state to state C
-				current_state = STATE_C;
+	if (Clock == 5) {
+		// Set state to state C
+		current_state = STATE_C;
 			
-				sb_now = HAL_GetTick();
-				sb_delta = sb_now - sb_prev_time;
-			  sb_delta /= 1000;
-				sb_prev_time = sb_now;
-				printf("This is the output of STATE B : %f seconds ago\n\r",sb_delta);
-			  //printf("This is the execution of STATE B \n\r");
-		}
+		sb_now = HAL_GetTick();
+		sb_delta = sb_now - sb_prev_time;
+		sb_delta /= 1000;
+		sb_prev_time = sb_now;
+		printf("This is the output of STATE B : %f seconds ago\n\r",sb_delta);
+		//printf("This is the execution of STATE B \n\r");
+	}
 }
 
 uint32_t sc_prev_time = 0;
@@ -88,19 +88,19 @@ float sc_delta;
 
 // Execute state C
 void state_c_function(void){
-		if (Clock == 9) {
-			  Clock = 0;
-			  // Set state to state A
-				current_state = STATE_A;
-			  sc_now = HAL_GetTick();
-			  sc_delta = sc_now - sc_prev_time;
-			  sc_delta /= 1000;
-			  sc_prev_time = sc_now;
-			  // printf("This is the execution of STATE C \n\r");
-			  printf("This is the output of STATE C : %f seconds ago\n\r",sc_delta);
-		}
+	if (Clock == 9) {
+		Clock = 0;
+		// Set state to state A
+		current_state = STATE_A;
+		sc_now = HAL_GetTick();
+		sc_delta = sc_now - sc_prev_time;
+		sc_delta /= 1000;
+		sc_prev_time = sc_now;
+		// printf("This is the execution of STATE C \n\r");
+		printf("This is the output of STATE C : %f seconds ago\n\r",sc_delta);
+	}
 }
 
 void SysTick_Handler(void){
-		HAL_IncTick();
+	HAL_IncTick();
 }
